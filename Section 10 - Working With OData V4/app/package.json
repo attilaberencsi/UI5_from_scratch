@@ -11,7 +11,8 @@
   "devDependencies": {
     "@sap-ux/backend-proxy-middleware": "^0.8.8",
     "@sap/ux-ui5-tooling": "1",
-    "@ui5/cli": "^3.11.2",
+    "@ui5/cli": "^4.0.26",
+    "@ui5/linter": "^1.20.1",
     "ui5-middleware-simpleproxy": "^0.2.1"
   },
   "scripts": {

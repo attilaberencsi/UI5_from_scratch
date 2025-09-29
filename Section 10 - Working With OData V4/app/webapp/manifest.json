@@ -46,7 +46,7 @@
     "flexEnabled": false,
     "handleValidation": true,
     "dependencies": {
-      "minUI5Version": "1.127.0",
+      "minUI5Version": "1.136.8",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
