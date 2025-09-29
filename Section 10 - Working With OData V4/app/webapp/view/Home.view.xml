@@ -5,7 +5,7 @@
     xmlns:semantic="sap.f.semantic">
 
     <semantic:SemanticPage
-        id="page"
+        id="idHomeSemanticPage"
         headerPinnable="false"
         toggleHeaderOnTitleClick="false">
 
@@ -18,7 +18,7 @@
         <semantic:content>
             <IconTabBar
                 id="idIconTabBar"
-                select="onSelectFilter"
+                select="onIconTabBarSelect"
                 class="sapUiResponsiveContentPadding">
                 <items>
                     <IconTabFilter
@@ -38,10 +38,10 @@
                 </items>
                 <content>
                     <Table
-                        id="table"
+                        id="idPeopleTable"
                         width="auto"
                         mode="Delete"
-                        delete=".onPressDelete"
+                        delete=".onPeopleTableDelete"
                         growing="true"
                         growingThreshold="12"
                         items="{
@@ -53,9 +53,9 @@
 
                         <headerToolbar>
                             <Toolbar>
-                                <Button text="{i18n>showMostExpensiveTrips}" press=".onPressShowMostExpensiveTrips" />
+                                <Button text="{i18n>showMostExpensiveTrips}" press=".onMostExpensiveTripsButtonPress" />
                                 <ToolbarSpacer />
-                                <Button icon="sap-icon://add" press=".onPressCreate" />
+                                <Button icon="sap-icon://add" press=".onButtonPress" />
                             </Toolbar>
                         </headerToolbar>
 
@@ -86,7 +86,7 @@
                         <items>
                             <ColumnListItem
                                 type="Navigation"
-                                press=".onPress">
+                                press=".onColumnListItemPress">
                                 <cells>
                                     <ObjectIdentifier title="{userName}" />
                                     <Text text="{firstName}" />

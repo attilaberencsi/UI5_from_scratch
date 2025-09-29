@@ -15,7 +15,7 @@ sap.ui.define(
 
       onInit: function () {},
 
-      onSelectFilter: function (oEvent) {
+      onIconTabBarSelect: function (oEvent) {
         var sSelectedKey = oEvent.getParameter("key");
 
         switch (sSelectedKey) {
@@ -29,7 +29,7 @@ sap.ui.define(
         }
       },
 
-      onPress: function (oEvent) {
+      onColumnListItemPress: function (oEvent) {
         var oItem = oEvent.getSource();
 
         UIComponent.getRouterFor(this).navTo("details", {
@@ -37,13 +37,13 @@ sap.ui.define(
         });
       },
 
-      onPressCreate: function () {
+      onButtonPress: function () {
         UIComponent.getRouterFor(this).navTo("create");
       },
 
-      onPressDelete: function (oEvent) {},
+      onPeopleTableDelete: function (oEvent) {},
 
-      onPressShowMostExpensiveTrips: function() {
+      onMostExpensiveTripsButtonPress: function() {
         if (!this._oDialog) {
           Fragment.load({
             id: this.getView().getId(),
