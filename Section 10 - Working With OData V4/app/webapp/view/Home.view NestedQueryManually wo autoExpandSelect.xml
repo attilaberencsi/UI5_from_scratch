@@ -49,7 +49,23 @@
                         growing="true"
                         growingThreshold="12"
                         items="{
-                            path: '/People'
+                            path: '/People',
+                            parameters: {
+                                $select: ['userName', 'firstName', 'lastName', 'age', 'gender'],
+                                $expand: {
+                                    status: {
+                                        $select: ['code', 'name']
+                                    },
+                                    emails: {
+                                        $expand: {
+                                            type: {
+                                                $select: ['code', 'name']
+                                            }
+                                        },
+                                        $filter: 'type_code ne \'W\''
+                                    }
+                                }
+                            }
                         }"
                     >
                         <headerToolbar>
@@ -128,9 +144,6 @@
                                     />
                                     <VBox items="{
                                         path: 'emails',
-                                        parameters: {
-                                            $filter: 'type_code ne \'W\''
-                                        },                                        
                                         templateShareable: false
                                     }">
                                         <Text
