@@ -34,10 +34,7 @@ sap.ui.define(
         var sUserID = oEvent.getParameter("arguments").userID;
 
         this.getView().bindElement({
-          path: "/People(" + sUserID + ")",
-          parameters: {
-            $expand: "status,address,emails,trips",
-          },
+          path: "/People(" + sUserID + ")"
         });
       },
     });

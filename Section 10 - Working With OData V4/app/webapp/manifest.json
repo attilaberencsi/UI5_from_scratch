@@ -72,7 +72,23 @@
 			"": {
 				"dataSource": "mainService",
 				"preload": true,
-				"settings": {}
+				"settings": {
+          "operationMode": "Server",
+          "autoExpandSelect" : true,
+          "earlyRequests": true,
+          "groupId": "$auto",
+          "groupProperties": {
+            "data": {
+              "submit": "Auto"
+            },
+            "jobResultRetrieval": {
+              "submit": "Auto"
+            }            
+          },
+          "httpHeaders": {
+            "X-Sapdev-Eu-Turbo-Mode": "on"
+          }
+        }
 			}
     },
     "resources": {

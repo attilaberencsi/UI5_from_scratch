@@ -47,7 +47,7 @@
                         items="{
                             path: '/People',
                             parameters: {
-                                $expand: 'status,emails'
+                                
                             }
                         }">
 
