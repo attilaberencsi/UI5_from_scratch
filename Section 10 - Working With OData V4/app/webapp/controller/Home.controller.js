@@ -13,18 +13,35 @@ sap.ui.define(
     return Controller.extend("odata.v4.demo.trippin.controller.Home", {
       formatter: formatter,
 
-      onInit: function () {},
+      onInit: function () { },
 
       onIconTabBarSelect: function (oEvent) {
-        var sSelectedKey = oEvent.getParameter("key");
+        const oTableBinding = this.byId("idPeopleTable").getBinding("items");
+        const sSelectedKey = oEvent.getParameter("key");
 
         switch (sSelectedKey) {
           case "all":
-          default:
+            oTableBinding.filter([]);
             break;
           case "vip":
+            oTableBinding.filter([
+              new Filter({
+                path: "trips",
+                operator: Operator.Any,
+                variable: "trip",
+                condition: new Filter({ path: "trip/budget", operator: Operator.GE, value1: 2000 })
+              })
+            ]);
             break;
           case "regular":
+            oTableBinding.filter([
+              new Filter({
+                path: "trips",
+                operator: Operator.All,
+                variable: "trip",
+                condition: new Filter({ path: "trip/budget", operator: Operator.LT, value1: 2000 })
+              })
+            ]);            
             break;
         }
       },
@@ -41,9 +58,9 @@ sap.ui.define(
         UIComponent.getRouterFor(this).navTo("create");
       },
 
-      onPeopleTableDelete: function (oEvent) {},
+      onPeopleTableDelete: function (oEvent) { },
 
-      onMostExpensiveTripsButtonPress: function() {
+      onMostExpensiveTripsButtonPress: function () {
         if (!this._oDialog) {
           Fragment.load({
             id: this.getView().getId(),
@@ -59,11 +76,11 @@ sap.ui.define(
         }
       },
 
-      onPressCloseDialog: function() {
+      onPressCloseDialog: function () {
         this._oDialog.close();
       },
 
-      onPressShowTrips: function() {}
+      onPressShowTrips: function () { }
     });
   }
 );

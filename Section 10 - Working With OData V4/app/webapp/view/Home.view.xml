@@ -24,18 +24,27 @@
                 <items>
                     <IconTabFilter
                         showAll="true"
+                        count="{/People/$count}"
                         text="{i18n>allUsers}"
                         key="all"
                     />
                     <IconTabSeparator />
                     <IconTabFilter
                         icon="sap-icon://message-success"
+                        count="{
+                            path: '/People/$count?$filter=trips/any(trip:trip/budget%20ge%202000)',
+                            targetType: 'any'
+                        }"
                         iconColor="Positive"
                         text="{i18n>vip}"
                         key="vip"
                     />
                     <IconTabFilter
                         icon="sap-icon://person-placeholder"
+                        count="{
+                            path: '/People/$count?$filter=trips/all(trip:trip/budget%20lt%202000)',
+                            targetType: 'any'
+                        }"                        
                         text="{i18n>regular}"
                         key="regular"
                     />
@@ -49,7 +58,10 @@
                         growing="true"
                         growingThreshold="12"
                         items="{
-                            path: '/People'
+                            path: '/People',
+                            parameters: {
+                                $count: true
+                            }
                         }"
                     >
                         <headerToolbar>
@@ -130,7 +142,7 @@
                                         path: 'emails',
                                         parameters: {
                                             $filter: 'type_code ne \'W\''
-                                        },                                        
+                                        },
                                         templateShareable: false
                                     }">
                                         <Text
