@@ -23,7 +23,16 @@ sap.ui.define(
         UIComponent.getRouterFor(this).navTo("edit", { userID: sUserId }, true);
       },
 
-      onPressSuspend: function() {},
+      onSuspendButtonPress: function () {
+        let oModel = this.getView().getModel();
+        let oContext = this.getView().getBindingContext();
+        let oAction = oModel.bindContext("TrippinService.suspendPerson(...)", oContext);
+        oAction.execute().then(function () {
+          let sMessage = oAction.getBoundContext().getObject().value;
+          MessageToast.show(sMessage);
+          oContext.refresh();
+        }.bind(this));
+      },
 
       _onObjectMatched: function (oEvent) {
         var sUserID = oEvent.getParameter("arguments").userID;

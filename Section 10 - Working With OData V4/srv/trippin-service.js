@@ -31,22 +31,25 @@ module.exports = cds.service.impl(async function () {
 
   this.on("suspendPerson", async (req) => {
     // Get the person ID from the bound entity in the request context
-    const ID = req.params[0];
+    //const ID = req.params[0];
+
+    const keys = req.params[0]; // This is usually an object like { ID: 123 }
+    const id = keys.ID;
 
     // Find the person
     const person = await cds.run(
-      SELECT.one.from(People).where({ ID })
+      SELECT.one.from(People).where({ ID : id })
     );
 
     if (!person) {
-      return req.error(404, `Person with ID ${ID} not found`);
+      return req.error(404, `Person with ID ${id} not found`);
     }
 
     // Update the status to 'S' (Suspended)
     await cds.run(
-      UPDATE(People).set({ status_code: "S" }).where({ ID })
+      UPDATE(People).set({ status_code: "S" }).where({ ID: id })
     );
 
-    return `Person with ID ${ID} has been suspended.`;
+    return `Person with ID ${id} has been suspended.`;
   });
 });

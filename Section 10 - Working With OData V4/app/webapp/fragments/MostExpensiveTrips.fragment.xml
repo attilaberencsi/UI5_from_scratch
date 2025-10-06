@@ -1,12 +1,18 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form">
-  <Dialog id="idDialog" title="{i18n>mostExpensiveTrips}" contentWidth="400px">
-    <!-- <form:SimpleForm editable="true" labelSpanS="3">
+  <!-- Deferred invokation with the 3 dots (...) -->
+  <!-- If we want input parameters handover, binding moves to the Dialog not to the List -->  
+  <!-- For simple return values like integer, we need to define explicitly the path and type -->
+  <Dialog binding="{/getMostExpensiveTrips(...)}" id="idDialog" title="{i18n>mostExpensiveTrips}" contentWidth="400px">
+    <form:SimpleForm binding="{$Parameter}" editable="true" labelSpanS="3">
       <Label text="{i18n>count}" />
-      <Input id="idCountInput" />
+      <!-- <Input id="idCountInput" /> -->
+      <!-- <Input value="{$Parameter/count}"/> -->
+      <Input value="{count}"/>
       <Label text="" />
       <Button text="{i18n>showTrips}" press=".onPressShowTrips" />
-    </form:SimpleForm> -->
-    <List>
+    </form:SimpleForm>
+    <List items="{value}">
+    <!-- <List items="{/getMostExpensiveTrips()}"> -->
       <items>
         <ObjectListItem
           title="{name}"

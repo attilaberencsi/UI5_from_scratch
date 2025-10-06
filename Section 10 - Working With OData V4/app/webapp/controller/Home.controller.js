@@ -91,7 +91,17 @@ sap.ui.define(
         this._oDialog.close();
       },
 
-      onPressShowTrips: function () { },
+      onPressShowTrips: function () {
+        // Providing function parameters by code is also possible, not only in XML view
+        // let iCount = this.getView().byId("idCountInput").getValue();
+        // if(!iCount || isNaN(iCount) || iCount < 1){
+        //   iCount = 0;
+        // }
+
+        // this.getView().byId("idDialog").getObjectBinding().setParameter("count", iCount).invoke();
+
+        this.getView().byId("idDialog").getObjectBinding().invoke();
+      },
 
       /**
        * Refresh the counts displayed in the icon tab filters
