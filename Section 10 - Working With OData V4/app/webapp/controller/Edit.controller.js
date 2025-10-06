@@ -18,20 +18,40 @@ sap.ui.define(
           .attachPatternMatched(this._onObjectMatched, this);
       },
 
-      onPressAddTrip: function () {},
+      onPressAddTrip: function () {
+        this.getView().byId("idTripsCreateTable").getBinding("items").create({}, false, true, false);
+      },
 
-      onRemoveTrip: function (oEvent) {},
+      onRemoveTrip: function (oEvent) {
+        let oItem = oEvent.getParameter("listItem");
+        let oContext = oItem.getBindingContext();
+        oContext.delete();
+      },
 
-      onPressSave: function () {},
+      onPressSave: function () {
+        const oModel = this.getView().getModel();
+        oModel.submitBatch(oModel.getUpdateGroupId()).then(function () {
+          if (!this.getOwnerComponent().bError) {
+            let oBundle = this.getView().getModel("i18n").getResourceBundle();
+            MessageToast.show(oBundle.getText("userCreated"), {
+              closeOnBrowserNavigation: false
+            });
+            UIComponent.getRouterFor(this).navTo("details", {
+              userID: this.getView().getBindingContext().getProperty("ID")
+            }, true);
+          }
+        }.bind(this));
+      },
 
       onPressCancel: function () {
-        var sUserId = this.getView().getBindingContext().getProperty("ID");
-
+        let sUserId = this.getView().getBindingContext().getProperty("ID");
+        let oModel = this.getView().getModel();
+        oModel.resetChanges(oModel.getUpdateGroupId());
         UIComponent.getRouterFor(this).navTo("details", { userID: sUserId }, true);
       },
 
       _onObjectMatched: function (oEvent) {
-        var sUserID = oEvent.getParameter("arguments").userID;
+        let sUserID = oEvent.getParameter("arguments").userID;
 
         this.getView().bindElement({
           path: "/People(" + sUserID + ")"

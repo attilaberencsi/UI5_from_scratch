@@ -72,8 +72,9 @@
                                 />
                                 <ToolbarSpacer />
                                 <Button
+                                    id="idAddBPButton"
                                     icon="sap-icon://add"
-                                    press=".onButtonPress"
+                                    press=".onButtonAddBPPress"
                                 />
                             </Toolbar>
                         </headerToolbar>

@@ -59,14 +59,14 @@
         </Panel>
         <Panel class="sapUiSmallMarginTop" headerText="{i18n>trips}">
           <Table
-            id="idTripsTable"
+            id="idTripsCreateTable"
             items="{trips}"
             mode="Delete"
             delete=".onRemoveTrip">
             <headerToolbar>
               <Toolbar>
                 <ToolbarSpacer />
-                <Button icon="sap-icon://add" press=".onPressAddTrip" />
+                <Button icon="sap-icon://add" press=".onButtonAddTripPress" />
               </Toolbar>
             </headerToolbar>
             <columns>

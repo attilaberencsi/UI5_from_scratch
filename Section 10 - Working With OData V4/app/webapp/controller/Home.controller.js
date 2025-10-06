@@ -41,7 +41,7 @@ sap.ui.define(
                 variable: "trip",
                 condition: new Filter({ path: "trip/budget", operator: Operator.LT, value1: 2000 })
               })
-            ]);            
+            ]);
             break;
         }
       },
@@ -54,11 +54,22 @@ sap.ui.define(
         });
       },
 
-      onButtonPress: function () {
+      onButtonAddBPPress: function () {
+        //this.getView().byId("idPeopleTable").getBinding("items").create({});
         UIComponent.getRouterFor(this).navTo("create");
       },
 
-      onPeopleTableDelete: function (oEvent) { },
+      onPeopleTableDelete: function (oEvent) {
+        let oItem = oEvent.getParameter("listItem");
+        let oContext = oItem.getBindingContext();
+        oContext.delete();
+        let oModel = this.getView().getModel();
+        oModel.submitBatch(oModel.getUpdateGroupId());
+
+        // Refresh counts
+        this._refreshCounts();
+
+      },
 
       onMostExpensiveTripsButtonPress: function () {
         if (!this._oDialog) {
@@ -80,7 +91,23 @@ sap.ui.define(
         this._oDialog.close();
       },
 
-      onPressShowTrips: function () { }
+      onPressShowTrips: function () { },
+
+      /**
+       * Refresh the counts displayed in the icon tab filters
+       * @private
+       */
+      _refreshCounts: function () {
+        let aTabs = this.getView().byId("idIconTabBar").getItems();
+
+        for (let i = 0; i < aTabs.length; i++) {
+          const oTab = aTabs[i];
+          if (oTab instanceof sap.m.IconTabFilter) {
+            oTab.getBinding("count").refresh();
+          }
+        }
+      }
+
     });
   }
 );
