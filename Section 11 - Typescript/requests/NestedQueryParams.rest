@@ -1,0 +1,2 @@
+# @name nestedQueryParams
+http://localhost:8080/odata/v4/trippin/People?$expand=status,emails($expand=type;$filter=type_code ne 'W')

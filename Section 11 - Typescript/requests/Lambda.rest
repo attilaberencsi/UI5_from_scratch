@@ -1,0 +1,6 @@
+# @name peopleWithTripsOver2000
+http://localhost:4004/odata/v4/trippin/People?$expand=trips&$filter=trips/any(trip:trip/budget ge 2000)
+
+
+# @name peopleWithAllTripsUnder2000
+http://localhost:4004/odata/v4/trippin/People?$expand=trips&$filter=trips/all(trip:trip/budget lt 2000)
