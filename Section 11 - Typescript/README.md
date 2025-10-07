@@ -1,1 +1,0 @@
-# Initial application for UI5 From Scratch series - Section 11
