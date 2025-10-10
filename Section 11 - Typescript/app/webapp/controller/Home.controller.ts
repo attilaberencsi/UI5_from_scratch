@@ -9,15 +9,23 @@ import { ListItemBase$PressEvent } from "sap/m/ListItemBase";
 import { ListBase$DeleteEvent } from "sap/m/ListBase";
 import Context from "sap/ui/model/odata/v4/Context";
 import ODataModel from "sap/ui/model/odata/v4/ODataModel";
-//import formatter from "../model/formatter"
+import Dialog from "sap/m/Dialog";
+import XMLView from "sap/ui/core/mvc/XMLView";
+import ODataContextBinding from "sap/ui/model/odata/v4/ODataContextBinding";
 
 export default class HomeController extends Controller {
+  private _oDialog: Dialog;
+  private _oView: XMLView;
   //formatter = formatter;
 
-  onSelectFilter(oEvent: IconTabBar$SelectEvent) {
+  onInit(): void {
+      this._oView = this.getView() as XMLView;
+  }
+
+  onIconTabBarSelect(oEvent: IconTabBar$SelectEvent) {
     const sSelectedKey = oEvent.getParameter("key");
     const oTableBinding = this.getView()
-      ?.byId("table")
+      ?.byId("idPeopleTable")
       ?.getBinding("items") as ListBinding;
 
     switch (sSelectedKey) {
@@ -48,7 +56,7 @@ export default class HomeController extends Controller {
     }
   }
 
-  onPress(oEvent: ListItemBase$PressEvent) {
+  onColumnListItemPress(oEvent: ListItemBase$PressEvent) {
     const oItem = oEvent.getSource();
 
     UIComponent.getRouterFor(this).navTo("details", {
@@ -56,33 +64,31 @@ export default class HomeController extends Controller {
     });
   }
 
-  onPressCreate() {
+  onButtonAddBPPress() {
     UIComponent.getRouterFor(this).navTo("create");
   }
 
-  onPressDelete(oEvent: ListBase$DeleteEvent) {
+  onPeopleTableDelete(oEvent: ListBase$DeleteEvent) {
     const oItem = oEvent.getParameter("listItem");
-    const oModel = this.getView()?.getModel() as ODataModel;
+    const oModel = this._oView?.getModel() as ODataModel;
 
     (oItem?.getBindingContext() as Context).delete();
 
     oModel.submitBatch(oModel.getUpdateGroupId());
   }
 
-  /* onPressShowMostExpensiveTrips() {
-    if (!this._oDialog) {
-      Fragment.load({
-        id: this.getView().getId(),
-        name: "odata.v4.demo.trippin.fragments.MostExpensiveTrips",
-        controller: this
-      }).then(oDialog => {
-        this._oDialog = oDialog;
-        this.getView().addDependent(oDialog);
-        oDialog.open();
-      })
-    } else {
-      this._oDialog.open();
+  async onMostExpensiveTripsButtonPress() {
+    this._oDialog ??= await Fragment.load({
+      id: this._oView.getId(),
+      name: "odata.v4.demo.trippin.fragments.MostExpensiveTrips",
+      controller: this
+    }) as Dialog;
+
+    if (this._oView.indexOfDependent(this._oDialog) === -1) {
+      this._oView.addDependent(this._oDialog);
     }
+    
+    this._oDialog.open();
   }
 
     onPressCloseDialog() {
@@ -90,6 +96,7 @@ export default class HomeController extends Controller {
     }
 
     onPressShowTrips() {
-      this.getView().byId("idDialog").getObjectBinding().invoke();
-    } */
+      const oAction = this._oView.byId("idDialog").getObjectBinding() as ODataContextBinding;
+      oAction.invoke();
+    }
 }

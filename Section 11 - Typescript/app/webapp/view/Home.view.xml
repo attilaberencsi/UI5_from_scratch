@@ -22,7 +22,7 @@
         <semantic:content>
             <IconTabBar
                 id="idIconTabBar"
-                select="onIconTabBarSelect"
+                select=".onIconTabBarSelect"
                 class="sapUiResponsiveContentPadding"
             >
                 <items>

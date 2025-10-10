@@ -1,7 +1,6 @@
 import Controller from "sap/ui/core/mvc/Controller";
 import UIComponent from "sap/ui/core/UIComponent";
 import MessageToast from "sap/m/MessageToast";
-// import formatter from "../model/formatter"
 import { Route$PatternMatchedEvent } from "sap/ui/core/routing/Route";
 import Context from "sap/ui/model/odata/v4/Context";
 import ODataV4Model from "sap/ui/model/odata/v4/ODataModel";
@@ -29,7 +28,7 @@ export default class DetailsContoller extends Controller {
     UIComponent.getRouterFor(this).navTo("edit", { userID: sUserId }, true);
   }
 
-  onPressSuspend() {
+  async onSuspendButtonPress() {
     const oModel = this.getView()?.getModel() as ODataV4Model;
     const oContext = this.getView()?.getBindingContext() as Context;
 
@@ -38,10 +37,10 @@ export default class DetailsContoller extends Controller {
       oContext
     );
 
-    oAction?.invoke().then(() => {
-      MessageToast.show(oAction.getBoundContext().getProperty("value"));
+    await oAction?.invoke();
 
-      oContext.refresh();
-    });
+    MessageToast.show(oAction.getBoundContext().getProperty("value"));
+
+    oContext.refresh();
   }
 }
