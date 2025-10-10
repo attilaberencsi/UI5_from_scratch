@@ -6,6 +6,6 @@ import Controller from "sap/ui/core/mvc/Controller";
 export default class AppController extends Controller {
   public onInit(): void {
     // apply content density mode to root view
-    this.getView().addStyleClass((this.getOwnerComponent() as any).getContentDensityClass());
+    //this.getView().addStyleClass((this.getOwnerComponent() as any).getContentDensityClass());
   }
 }

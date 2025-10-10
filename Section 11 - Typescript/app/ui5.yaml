@@ -13,12 +13,12 @@ server:
         baseUri: "http://localhost:4004/odata/v4/trippin"
         httpHeaders:
           Access-Control-Allow-Origin: '*'
-#    - name: backend-proxy-middleware
-#      afterMiddleware: compression
-#      configuration:
-#        backend:
-#          path: /odata/v4/trippin
-#          url: http://localhost:4004/odata/v4/trippin
+    # - name: backend-proxy-middleware
+    #   afterMiddleware: compression
+    #   configuration:
+    #     backend:
+    #       path: /odata/v4/trippin
+    #       url: http://localhost:4004/odata/v4/trippin
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
@@ -43,7 +43,12 @@ server:
       afterMiddleware: compression
     - name: ui5-middleware-livereload
       afterMiddleware: compression
+      configuration:
+        ignorePaths:
+          - /Component-preload.js
 builder:
   customTasks:
+    - name: ui5-tooling-transpile-task
+      afterTask: replaceVersion
     - name: ui5-tooling-transpile-task
       afterTask: replaceVersion

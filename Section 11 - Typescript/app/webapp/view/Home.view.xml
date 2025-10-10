@@ -3,6 +3,10 @@
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:semantic="sap.f.semantic"
+    xmlns:core="sap.ui.core"    
+    core:require="{
+		formatter: 'odata/v4/demo/trippin/model/formatter'
+	}"
 >
     <semantic:SemanticPage
         id="idHomeSemanticPage"
@@ -136,8 +140,9 @@
                                         text="{status/name}"
                                         state="{
                                             path: 'status/code',
-                                            formatter: '.formatter.formatUserStatusState'
+                                            formatter: 'formatter.formatUserStatusState'
                                         }"
+
                                     />
                                     <VBox items="{
                                         path: 'emails',
